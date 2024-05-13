@@ -1,4 +1,4 @@
---[[  Ver:Offical		Date:2021-08-04	--]]--
+--[[  Ver:Offical		Date:2024-05-11	--]]
 --[[--]]--
 
 
@@ -6,7 +6,7 @@ LMD = 2.5
 
 keybb="lalt"		
 LSKG = 1			
-version = 2
+version = 1
 offset_pattern = 3 	--1.KaiGuan    2.YouJian   3.KaiGuan AND YouJian   4.KaiGuan OR YouJian
 Logitech = "GHUB"			
 KaiGuan="capslock" --KaiGuanJian
@@ -14,9 +14,10 @@ boost_key="lshift"
 
 
 -------------------------------------------------------------------
------------------------------WeiTiaoQuYu---------------------------
---                      CZ =  ShangXiaFuDu 			 --
---			SP =  ZuoYouFuDu			 --
+----------------------------- DITHER AMPLITUDE---------------------------
+--          CZ =  UpDownAmplitude 			 --
+--			SP =  LeftRightAmplitude
+--          math.random(0，3) 返回0到3之间的伪随机整数
 -------------------------------------------------------------------
 
 R301CZ = 1
@@ -833,15 +834,7 @@ function ManualSetGun(arg1)
 end
 
 
-function AutoRecognize()
-	dofile("D:/AutoRecognize.lua")
-	GunSet(weapon_index)
-	if(turbo_index==1) then
-		text_wl = text_ywl
-	else
-		text_wl = text_wwl
-	end
-end
+
 
 function OnEvent(event, arg)
 	if (event == "PROFILE_ACTIVATED") then
@@ -872,10 +865,6 @@ function OnEvent(event, arg)
 			text_yqfs1 = text_dzordxyq
 		end
 		OutputLogMessage(ToUTF8(text_jieshao).."\n"..ToUTF8(text_dqbb)..ToUTF8(text_bbstate)..ToUTF8(text_dkg)..ToUTF8(text_bbtime)..text_bbdate..ToUTF8(text_dkg)..ToUTF8(text_qdbb)..ToUTF8(text_qdstate).."\n"..ToUTF8(text_yqfs)..ToUTF8(text_yqfs1)..ToUTF8(text_dkg)..ToUTF8(text_dkg)..ToUTF8(text_dkg)..ToUTF8(text_kg)..ToUTF8(text_kg)..ToUTF8(text_kg)..ToUTF8(text_qh).."\n\n")
-		--offset_list1_1,offset_time1_1,offset_state1_1,text_offset1_1,offset_trim_list1_1,offset_trim_ratio1_1,offset_trim_amend1_1 = ToGun(qx1_1)
-		--offset_list1_1,offset_time1_1,offset_state1_1,text_offset1_1,offset_trim_list1_1,offset_trim_ratio1_1,offset_trim_amend1_1 = ToGun(qx1_2)
-		--offset_list1_1 = SetGun_offset(offset_list1_1,offset_trim_list1_1,offset_trim_ratio1_1,offset_trim_amend1_1)
-		--offset_list1_1 = SetGun_offset(offset_list1_1,offset_trim_list1_1,offset_trim_ratio1_1,offset_trim_amend1_2)
 	end
 	if(version == 1)then
 		if(arg == SetGunKey_User1 or arg == SetGunKey_User2)then
@@ -887,24 +876,6 @@ function OnEvent(event, arg)
 		kg = 1
 		if (offset_pattern == 1 and IsKeyLockOn(KaiGuan)) then
 			kg = 2
-			if(version == 2)then
-				AutoRecognize()
-			end
-		elseif (offset_pattern == 2 and IsMouseButtonPressed(3)) then
-			kg = 2
-			if(version == 2)then
-				AutoRecognize()
-			end
-		elseif (offset_pattern == 3 and IsMouseButtonPressed(3) and IsKeyLockOn(KaiGuan)) then
-			kg = 2
-			if(version == 2)then
-				AutoRecognize()
-			end
-		elseif (offset_pattern == 4 and (IsMouseButtonPressed(3) or IsKeyLockOn(KaiGuan))) then
-			kg = 2
-			if(version == 2)then
-				AutoRecognize()
-			end
 		else
 			kg = 1
 		end
