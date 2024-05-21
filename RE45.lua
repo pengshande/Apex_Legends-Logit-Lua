@@ -1,32 +1,51 @@
-text_RE45 = {82, 69, 45, 52, 53, 232, 135, 170, 229, 138, 168, 230, 137, 139, 230, 158, 170}
-offset_time = 14
+offset_list = {
 
-offset_list = {{1, -1, 9, 5}, {2, -1, 9, 5}, {3, -3, 9, 5}, {4, -3, 8, 5}, {5, -3, 8, 5}, {6, -4, 8, 5}, {7, -4, 8, 5},
-               {8, -8, 5, 5}, {9, -8, 3, 5}, {10, -7, 5, 5}, {11, -3, 4, 5}, {12, -3, 4, 5}, {13, -4, 3, 5},
-               {14, -1, 4, 5}, {15, 0, 4, 5}, {16, -4, 3, 5}, {17, 4, 5, 5}, {18, -4, 5, 5}, {19, -4, 6, 5},
-               {20, -2, -3, 5}, {21, -3, 3, 5}, {22, -2, 3, 5}, {23, -2, 3, 5}, {24, -2, 3, 5}, {25, -2, 3, 5}}
+    { 1, -2, 12, 2 }, { 2, 0, 12, 2 }, { 3, 0, 12, 2 },
+
+    { 4, -2, 12, 2 }, { 5, -3, 12, 2 }, { 6, -3, 12, 2 },
+
+    { 7,  -3, 12, 2 }, { 8, -3, 12, 2 }, { 9, 0, 12, 2 },
+
+    { 10, 3,  12, 2 }, { 11, 3, 12, 2 }, { 12, 3, 10, 2 },
+
+    { 13, 3,  6, 2 }, { 14, 0, 5, 2 }, { 15, -3, 4, 2 },
+
+    { 16, -3, 7, 2 }, { 17, 0, 7, 2 }, { 18, 3, 7, 2 },
+
+    { 19, 3, 7, 2 }, { 20, 4, 7, 2 }, { 21, 0, 7, 2 },
+
+    { 22, 3, 1, 2 }, { 23, -3, 2, 2 }, { 24, -3, 0, 2 },
+
+    { 25, -3, 1, 2 }, { 26, -3, 0, 2 }, { 27, -3, 1, 2 }
+
+}
+offset_time = 25
 
 EnablePrimaryMouseButtonEvents(true)
 
-function click()
-
-    if (IsKeyLockOn("capslock")) then
-        while (IsMouseButtonPressed(3)) do
-            if (IsMouseButtonPressed(1)) then
-
-                if (ij <= 25) then
-
-                    offset = offset_list[ij];
-
-                    for var_i = 1, offset[4] do
-                        Sleep(offset_time)
-                        MoveMouseRelative(offset[2], offset[3])
+function OnEvent(event, arg)
+ClearLog()
+    if (event == "MOUSE_BUTTON_PRESSED") then
+        if (IsKeyLockOn("capslock")) then
+      
+            
+                if IsMouseButtonPressed(1) then
+                ij = 1
+                    repeat
+                    if (ij <= 25) then
+                        offset = offset_list[ij];
+                        for var_i = 1, offset[4] do
+                            Sleep(offset_time)
+                         MoveMouseRelative(offset[2], offset[3])
+                             OutputLogMessage("Event: "..event.." Arg: "..arg.."")
+                        end
+                        ij = ij + 1
                     end
-
-                    ij = ij + 1
-
+                    until not IsMouseButtonPressed(1)
                 end
             end
         end
     end
-end
+
+
+
